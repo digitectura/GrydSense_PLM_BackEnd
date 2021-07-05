@@ -47,3 +47,13 @@ CREATE TABLE `product_components` (
   CONSTRAINT `product_components_fk1` FOREIGN KEY (`product_version_id`) REFERENCES `product_version` (`product_version_id`) ON DELETE CASCADE,
   CONSTRAINT `product_components_fk2` FOREIGN KEY (`componet_id`) REFERENCES `components` (`componet_id`) ON DELETE CASCADE
 );
+
+CREATE TABLE `version_files` (
+  `version_file_id` int NOT NULL AUTO_INCREMENT,
+  `category` varchar(225) NOT NULL,
+  `file_extension` varchar(225) DEFAULT NULL,
+  `product_version_id` int NOT NULL,
+  PRIMARY KEY (`version_file_id`),
+  KEY `version_files_fk1_idx` (`product_version_id`),
+  CONSTRAINT `version_files_fk1` FOREIGN KEY (`product_version_id`) REFERENCES `product_version` (`product_version_id`) ON DELETE CASCADE
+);
