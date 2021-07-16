@@ -58,9 +58,24 @@ public class ComponentsManagement {
 	@PostMapping("/vendor/{componentId}")
 	private ResponseEntity<?> addComponentVendors(@PathVariable Integer componentId,
 			@RequestBody ComponentVendorDetails componentVendorDetails) {
-		Components componentObj = componentsRepository.findByComponetId(componentId);
-		componentVendorDetails.setComponents(componentObj);
-		componentVendorDetailsRepository.saveAndFlush(componentVendorDetails);
+		if (componentVendorDetails.getComponentVendorDetailId() != null) {
+			ComponentVendorDetails componentVendorDetailObj = componentVendorDetailsRepository
+					.findByComponentVendorDetailId(componentVendorDetails.getComponentVendorDetailId());
+			if (componentVendorDetailObj != null) {
+				componentVendorDetailObj.setCostPerHundredUnits(componentVendorDetails.getCostPerHundredUnits());
+				componentVendorDetailObj.setCostPerThousandUnits(componentVendorDetails.getCostPerThousandUnits());
+				componentVendorDetailObj.setCostPerUnit(componentVendorDetails.getCostPerUnit());
+				componentVendorDetailObj.setManufacturer(componentVendorDetails.getManufacturer());
+				componentVendorDetailObj.setManufacturerPartNumber(componentVendorDetails.getManufacturerPartNumber());
+				componentVendorDetailObj.setVendor(componentVendorDetails.getVendor());
+				componentVendorDetailObj.setVendorPartNumber(componentVendorDetails.getVendorPartNumber());
+				componentVendorDetailsRepository.saveAndFlush(componentVendorDetailObj);
+			}
+		} else {
+			Components componentObj = componentsRepository.findByComponetId(componentId);
+			componentVendorDetails.setComponents(componentObj);
+			componentVendorDetailsRepository.saveAndFlush(componentVendorDetails);
+		}
 		return ResponseEntity.status(HttpStatus.OK).body("saved");
 	}
 
