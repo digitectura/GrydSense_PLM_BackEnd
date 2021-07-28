@@ -1,4 +1,4 @@
-package com.digi.configuration;
+package com.digi.config.oauth;
 
 import java.io.IOException;
 import javax.servlet.Filter;

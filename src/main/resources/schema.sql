@@ -57,3 +57,13 @@ CREATE TABLE `version_files` (
   KEY `version_files_fk1_idx` (`product_version_id`),
   CONSTRAINT `version_files_fk1` FOREIGN KEY (`product_version_id`) REFERENCES `product_version` (`product_version_id`) ON DELETE CASCADE
 );
+
+CREATE TABLE `user_details` (
+  `user_id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(225) NOT NULL,
+  `password` varchar(225) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+);
+
+INSERT INTO `user_details` (`user_id`, `email`, `password`) VALUES ('1', 'admin@grydsense.com', '$2a$10$DwqOtk0ug7Scezi0Jt29yOfyd5d9QzmVEL8XhwYSue.7HNc38Abm.');
